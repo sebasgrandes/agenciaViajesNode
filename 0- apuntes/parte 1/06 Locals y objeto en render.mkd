@@ -1,0 +1,38 @@
+# que hace el locals?
+
+El objeto `res.locals` es un objeto en el ciclo de vida de la solicitud-respuesta de Express que permite almacenar variables locales en la respuesta. Estas variables estarán disponibles en las vistas que se renderizan durante ese ciclo de solicitud-respuesta.
+
+En tu caso específico:
+
+```javascript
+app.use("/", (req, res, next) => {
+    const year = new Date();
+    res.locals.actualYear = year.getFullYear();
+    next(); /* puedes usar "return" para forzarlo */
+});
+```
+
+Estás agregando una propiedad `actualYear` al objeto `res.locals` y asignándole el año actual obtenido de un objeto `Date`. Este valor se conservará durante todo el ciclo de vida de esa solicitud en particular y estará disponible en las vistas que renderices posteriormente. Esto es especialmente útil cuando estás utilizando un motor de plantillas como Pug, porque te permite acceder a `actualYear` directamente en tus archivos de plantilla.
+
+Por ejemplo, podrías tener algo así en tu archivo Pug:
+
+```pug
+footer
+    p Copyright #{actualYear} Mi Empresa
+```
+
+Y automáticamente, `#{actualYear}` se reemplazará por el año actual, gracias a que se almacenó en `res.locals.actualYear`.
+
+La función `next()` al final es para asegurarte de que el flujo de middleware continúe y pase al siguiente middleware en la pila, o en su defecto, a la función que maneja la solicitud y envía una respuesta.
+
+# sobre el 2do argumento de render
+
+En el fragmento de código que has compartido, estás usando Express.js para definir una ruta para el endpoint raíz ("/"). Cuando un usuario visita este endpoint, la función callback se ejecuta.
+
+Dentro de esta función, utilizas `res.render("inicio", { pagina: "Inicio" });` para renderizar una plantilla. El método `render` toma generalmente dos argumentos:
+
+1. **El nombre de la plantilla**: En este caso, es "inicio", lo que significa que Express buscará una plantilla llamada `inicio.pug` (o `inicio` con la extensión que estés utilizando para tus vistas) en la carpeta de vistas.
+
+2. **Un objeto con datos que pasar a la plantilla**: Este es el segundo argumento y es un objeto JavaScript. En tu caso, estás pasando un objeto con una propiedad llamada `pagina` que tiene un valor de "Inicio". Este objeto se utilizará para llenar los lugares correspondientes en la plantilla. Por ejemplo, si en tu plantilla tienes algo como `h1 #{pagina}`, se renderizará como "h1 Inicio".
+
+Esas variables en el objeto (en este caso, `pagina: "Inicio"`) se pasan a la plantilla para su uso. Esto es especialmente útil cuando tienes contenido dinámico que quieres inyectar en una plantilla HTML.

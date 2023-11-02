@@ -1,0 +1,25 @@
+# ciclo de solicitud y respuesta en una aplicación web construida con Express
+
+Aquí tienes un desglose paso a paso de lo que sucedería:
+
+1. **Solicitud del Cliente:** Abres tu navegador y vas a la URL de tu sitio web, digamos `http://tu-sitio.com/`.
+
+2. **Escucha del Servidor:** Tu servidor Express está ejecutando `app.listen()` y está "escuchando" activamente las conexiones entrantes en el puerto especificado.
+
+3. **Identificación del Método y la Ruta:** El servidor identifica que se ha hecho una solicitud HTTP GET a la ruta `/`.
+
+4. **Búsqueda del Controlador:** Luego, el servidor buscará en tu código la función que maneja las solicitudes GET para la ruta `/`.
+
+    En tu código, esa función está definida como:
+
+    ```javascript
+    app.get("/", (req, res) => {
+        res.send("Inicio");
+    });
+    ```
+
+5. **Ejecución del Controlador:** Una vez identificado el controlador (la función callback), el servidor lo ejecuta. En este caso, la función envía la palabra "Inicio" como respuesta.
+
+6. **Envío de la Respuesta:** Finalmente, el servidor envía esta respuesta de vuelta al navegador, y ves la palabra "Inicio" en tu pantalla.
+
+Así es básicamente cómo funciona el ciclo de solicitud y respuesta en una aplicación web construida con Express. Espero que esta explicación te sea de ayuda. Si tienes más preguntas, no dudes en hacerlas.

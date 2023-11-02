@@ -1,0 +1,136 @@
+# iniciamos con el proyecto de node y las dependencias (express y nodemon)
+
+1. crea el archivo package.json con `npm init` -> a. para tener (manejar) tus dependencias en el proyecto b. para arrancar o ejecutar tus archivos
+2. instala la dependencia de produccion express con `npm i express` -> porque esa será nuestra plataforma para crear nuestro proyecto
+
+-   dependencia de desarrollo: solo la requieres mientras creas el proyecto
+-   (por defecto) dependencia de producción: las requeridas cuando el proyecto está publicado
+
+en el package.json se agregó la dependencia de express (en dependencies)
+se creó un package.lock -> no lo debes modificar
+se creó la carpeta node_modules en la cual se instalan todo lo que las demás dependencias que iras instalando requieren (como por ejemplo express)
+
+3. instala la dependencia de desarrollo de nodemon con `npm i --save-dev nodemon`
+   como vamos a estar haciendo muchos cambios (guardando cambios y agregando más funciones) en desarrollo... lo que hace nodemon es detectar dichos cambios y reinicia el servidor. porque sin esto tendríamos que manualmente ir a la terminal, detener el servidor y volverlo a arrancar
+
+en el package.json se agregó la dependencia de nodemon (en devDependencies)
+
+# configuramos el servidor (express en index.js)
+
+4. creamos index.js (en la carpeta global) y en él configuramos nuestro servidor express (también creamos routes/index.js)
+5. arrancamos el servidor...
+
+-   no olvides agregar en tu package.json -> "type": "module" (para decirle a express y node que usem esa sintaxis de modulos. por defecto esta con common js)
+    a. creamos el script a arrancar
+    para ello en package.json, en scripts, reemplazamos lo de "test" por: "dev": "nodemon index.js"
+    <!-- (ese nodemon que le pusiste sale del archivo (ejecutable) nodemon ubicado en la carpeta de binarios de node_modules) -->
+    b. arrancamos el script, en la terminal de la carpeta actual
+    para ello digitamos: npm run dev
+
+6. puedes ver lo que envias en http://localhost:4000/
+
+# instalamos mas dependencias (pug -> para habilitar el template engine)
+
+7. instalamos pug (como dependencia de produccion)
+   pug motor de vistas que renderiza tus plantillas a html
+   para ello paramos o cerramos el servidor -> terminal: npm i pug
+   volvemos a arrancar el servidor
+
+agregamos 1 linea de codigo en index.js para usar pug y creamos nuestra carpeta llamada "views" en donde colocaremos los archivos QUE ENVIAREMOS
+los archivos de pug tienen su propia sintaxis **(puedes usar una web llamada html-to-pug.com)**
+también puedes crear layouts principales
+
+# creas tu carpeta public y la seteas en express
+
+8. creas tu carpeta public
+   es la carpeta por defecto en donde estan todos los archivos publicos a los que el usuario puede acceder (sin tener acceso a las demas rutas).
+   creas tu carpeta y metes tus archivos css o imagenes.
+9. luego le dices a express que esa sera tui carpeta publica... añades codigo en express para decirle que esa carpeta será tu carpeta publica
+   sobre rutas relativas y absolutas en tu aplicacion express...
+
+**PARA MAS INFO SOBRE LA RUTA RELATIVA Y ABSOLUTA EN TU APP EXPRESS, Y LA CARPETA PUBLICA, VE A -> 04 ruta rela y abs, public.mkd**
+
+10. sobre las variables
+
+-   puedes crear variables en tu archivo de index.js al momento de usar .use para las rutas
+-   también puedes crear (no se si variables...) creo propiedades en tu archivo de routes/index.js al momento de realizar get a las rutas
+-   de esta manera puedes usar estas variables en tus archivos .pug para crear contenido dinamico
+
+11. creas e importas los datos a tu base de datos
+    abre table plus y crea una base de datos llamada agenciadeviajes. luego importa el archivo de codigo de la carpeta de agencia de viajes, eso tendra codigo que creará tus tablas en tu DB. al final ya tendrás tu DB creada con tus tablas
+
+12. instalas dependencias para la DB
+
+<!-- para mas info visita 08 Sequelize.mkd -->
+
+-   para ello: terminal: npm i mysql2 sequelize
+    sequelize es un ORM, soporta posgress, mysql
+-   creamos la carpeta config, y dentro colocamos db.js (que tendra la configuracion de nuestra DB)
+-   importamos la instancia configurada de la base de datos, a nuestro index.js de routes
+
+13. models, views y controllers
+
+-   creas tu carpeta models, y dentro pones los archivos con la 1era letra en mayusc. -> Viajes.js. aqui creas tu model
+-   creas tu carpeta controllers, dentro pones paginasController.js y ahi colocas todos los controlares (practicamente solo copiar y pegar lo de index.js routes porque basicamente solo es organizar). por supuesto tendrás que en ese archivo agregar mas cosas como por ejemplo para consultar tu db, etc
+-   las vistas basicamente son tus archivos viaje.pug, inicio.pug y los demás
+
+MVC
+
+-   Model: encargado de los datos (desde una base de datos) y de la logica para mostrar esos datos
+-   View: Se encarga de lo que se ve en pantalla (HTML)
+-   Controller: se comunica entre el modelo y la vista. también se encarga de pasar los datos del modelo a la vista. -> se encarga de que info se va a mostrar y que vista se va a cargar
+-   Router: encargado de registrar todas las url o endpoints que la aplicacion soporta
+
+14. no olvides parsear el cuerpo de la respuesta para obtener bien tus datos por post.
+    para esoo en index.js global ingresas este codigo:
+    `app.use(express.urlencoded({ extended: true }));`
+
+15. crea tu tabla manualmente
+    ... en tableplus, para los nuevos testimonios
+    luego crea tu model Testimonialopo.js e importa tu const a testimonialController.js para poder insertar un registro a tu tabla de tu db
+
+# deployment al proyecto
+
+## creando las variables de entorno
+
+en db.js...
+
+-   en host irá la url completa... y al colocarlo en github estara visible para todo mundo... podrías colocarlo como repositorio privado, sin embargo es mejor ocultar esa informacion.
+    una forma de hacerlo es con las variables de entorno: es una variable que es diferente tanto en el entorno de produccion, como en el de desarrollo... para ellos instalamos dotenv
+
+1. instalamos dotenv
+   terminal > npm install dotenv
+2. creas tu archivo .env y lo configuras (creas las variables de entorno)
+3. importas la variable en db.js -> `import dotenv from "dotenv/config";` y **reemplazas (colocas) las variables de entorno**
+
+-   de esta, cuando subamos el proyecto a github, alguien que se meta al archivo db.js solo verá los nombres de las variables... más no sus valores (las credenciales en .env)
+
+## instalando git y conectandolo a github
+
+esto te lo enseñan el el curso de Crea un ambiente de desarrollo web del profe. seccion 3 clase 7
+
+1. ya tienes instalado git por lo que ve a github.com > +' > nuevo repositorio (coloca un nombre de repositorio y descripcion, dale crear repositorio)
+2. tendras 3 opciones: repositorio nuevo, repositorio existente, u otro repositorio
+3. coloca los comandos que te muestran del "repositorio nuevo"...
+
+-   git init
+<!-- ! antes de agregar los archivos creas tu archivo .gitignore y añades: .env y node_modules -->
+-   en tu worksapce creas .gitignore
+-   git add . <!-- esto añade todos los archivos de tu workspace -->
+-   git commit -m "first commit"
+    <!-- por si te sale que el autor no se puede identificar... te dará 2 codigos para que los configures:
+    git config --global user.email "you@example.com"
+    git config --global user-name "Your Name"
+    (colocas tus credenciales con los que te registraste en github)
+     -->
+-   git branch -M main <!-- esto te mueve hacia el branch principal --> <!-- si colocas en la terminal externa creo... git branch --help te mostrará lso comandos disponibles -->
+-   git remote add origin https://... <!-- esto le dice que nuestro codigo le pertenece a este repositorio que hemos creado... puedes tener creadas varias carpetas asociadas a varios reposotorios. en la url colocas tu repositorio de git (te lo muestra en la pantalla) -->
+-   git push -u origin main <!-- esto sube el codigo -->
+<!-- si te sale un error de failed to push some refs to... es porque las credenciales no las colocaste pero despues, entonces, repite de nuevo la liunea 2 (add), 3 (commit) y 4 (push) -->
+
+4. aparecera una ventana para que inicies sesion, dale acceso.
+5. recarga la pagina de github que te mostraba los comandos del navegador... ahora te mostrara tu repositorio
+
+## creando el gitignore
+
+1. ve a guthub.com > +' > nuevo repositorio

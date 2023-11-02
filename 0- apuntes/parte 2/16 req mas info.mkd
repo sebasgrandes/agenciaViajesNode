@@ -1,0 +1,107 @@
+# explicame un poco mas sobre el "req", me refiero, que mas partes principales contiene a parte de el "body" y los "params" por ejemplo
+
+El objeto `req` (que representa la solicitud HTTP entrante) en Express contiene varias propiedades y métodos útiles que proporcionan información sobre la solicitud del cliente. Algunas de las partes más comúnmente utilizadas incluyen:
+
+### `req.params`
+
+Contiene los parámetros de ruta de la URL, definidos en la ruta del servidor. Por ejemplo, en la ruta `'/users/:userId'`, `req.params.userId` contendría el valor de `userId` en la URL.
+
+### `req.body`
+
+Contiene el cuerpo del mensaje, que es útil para analizar los datos enviados en una solicitud POST o PUT. Esta es la parte del objeto `req` que usarías para acceder a los datos del formulario, por ejemplo.
+
+### `req.query`
+
+Contiene la cadena de consulta en forma de objeto. Por ejemplo, en la URL `'/search?q=example'`, `req.query.q` sería `'example'`.
+
+### `req.method`
+
+Contiene el método HTTP de la solicitud (`GET`, `POST`, `PUT`, etc.).
+
+### `req.url` o `req.originalUrl`
+
+Contiene la URL completa de la solicitud. `req.url` es útil para el enrutamiento dentro de middleware y `req.originalUrl` es útil para obtener la URL tal como se recibió originalmente sin cambios realizados por las funciones de middleware.
+
+### `req.headers`
+
+Contiene todos los encabezados HTTP entrantes, que podrían incluir cosas como cookies o el tipo de agente de usuario.
+
+### `req.cookies`
+
+Si estás usando el middleware `cookie-parser`, `req.cookies` te dará acceso a las cookies enviadas en la solicitud.
+
+### `req.session`
+
+Si estás usando un middleware de manejo de sesión como `express-session`, `req.session` te permitirá acceder y manipular la sesión del usuario.
+
+### `req.ip`
+
+Contiene la dirección IP de la solicitud.
+
+Cada uno de estos proporciona diferentes piezas de información sobre la solicitud entrante y es útil en diferentes contextos, dependiendo de lo que necesites hacer en tu aplicación.
+
+# como luce el req?
+
+El objeto `req` en Express es una instancia del objeto `IncomingMessage` de Node.js, extendido con funcionalidades adicionales específicas de Express. No es sencillo mostrar una representación completa del objeto `req` porque contiene una gran cantidad de métodos y propiedades, muchos de los cuales son funciones o referencias a objetos complejos.
+
+Sin embargo, a grandes rasgos, aquí hay una versión simplificada y ficticia de cómo podría verse una parte del objeto `req`:
+
+```javascript
+{
+  method: 'GET',
+  url: '/users?name=JohnDoe',
+  headers: {
+    'user-agent': 'Mozilla/5.0',
+    'accept-language': 'en-US,en;q=0.9',
+    // ...
+  },
+  params: {
+    userId: '123'
+  },
+  query: {
+    name: 'JohnDoe'
+  },
+  body: {
+    username: 'johndoe',
+    password: 'password123'
+  },
+  cookies: {
+    sessionId: 'abc123'
+  },
+  session: {
+    authenticated: true,
+    // ...
+  },
+  // ...muchos más campos y métodos
+}
+```
+
+Ten en cuenta que las propiedades específicas que estarán disponibles en `req` pueden variar en función de varios factores, incluyendo qué middlewares has añadido a tu aplicación Express y cómo has configurado tus rutas.
+
+Los datos como `req.params`, `req.query`, `req.body`, etc., son solo subconjuntos del objeto `req` completo, focalizados en diferentes aspectos de la solicitud entrante.
+
+# que es el IncomingMessage
+
+`IncomingMessage` es una clase en Node.js que se utiliza para acceder a la información de una solicitud HTTP entrante. Esta clase se usa tanto en el módulo HTTP como en el módulo HTTPS de Node.js. Cuando recibes una solicitud HTTP en un servidor HTTP creado con Node.js, el objeto de solicitud es una instancia de `IncomingMessage`.
+
+El objeto `IncomingMessage` contiene información sobre la solicitud del cliente, como los encabezados HTTP, el método HTTP utilizado (`GET`, `POST`, etc.), la URL de la solicitud y más. También es un objeto de flujo legible, lo que significa que puedes escuchar eventos y leer el cuerpo de la solicitud en caso de que haya datos enviados en el cuerpo (como en una solicitud POST).
+
+Por ejemplo, un uso básico del objeto `IncomingMessage` en un servidor HTTP de Node.js podría verse así:
+
+```javascript
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+    console.log(req.method); // Método HTTP, por ejemplo, 'GET'
+    console.log(req.url); // URL de la solicitud, por ejemplo, '/'
+    console.log(req.headers); // Encabezados HTTP como un objeto
+
+    // ... más código para manejar la solicitud
+});
+
+server.listen(3000);
+```
+
+En este ejemplo, `req` es un objeto `IncomingMessage`.
+
+Cuando estás trabajando con Express, este objeto se extiende con funcionalidades adicionales para facilitar el desarrollo, como `req.body`, `req.params`, `req.query` y más, pero la base sigue siendo un objeto `IncomingMessage`.

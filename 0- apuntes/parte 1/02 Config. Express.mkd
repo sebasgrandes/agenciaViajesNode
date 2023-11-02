@@ -1,0 +1,62 @@
+// ! configurando express
+
+// - Importación de Express. Este codigo importa el módulo Express (desde paquete llamado "express" que instalamos y que está como dependencia en package.json) para que puedas utilizarlo en tu aplicación. Express es un framework para construir aplicaciones web en Node.js.
+import express from "express"; // * colocalo sin corchetes. no olvides colocar "type": "module" en tu package.json
+
+// const express = require("express"); // antigua sintaxis... de common js
+
+// - Inicializacion de la aplicacion express. Se crea una nueva instancia de la aplicación Express y se almacena en la constante app.
+
+// con express() sí estamos invocando una función. La razón de usar express() (con los paréntesis) es que express es en realidad una función que, cuando se invoca, devuelve una nueva instancia de una aplicación Express.
+
+```javascript
+const app = express();
+```
+// - Configuracion del puerto. Se establece el puerto donde se ejecutará el servidor. Si el ambiente tiene una variable PORT definida, se usará ese valor; de lo contrario, se usará el puerto 4000.
+
+// process.env.PORT -> variable de entorno. esta tomara la puerta disponible cuando hagamos el deployment... por el momento no funciona por lo que funciona 4000
+
+```javascript
+const port = process.env.PORT || 4000;
+```
+
+// express soporta los verbos: post, get, put, patch y delete
+// .send sirve para mandar a consola
+
+// - Definicion de las rutas. Esta línea define una ruta para la URL raíz ("/"). Cuando alguien visite esta URL (y se haga un http get), el servidor enviará la palabra "Inicio" como respuesta.
+// El método .get() de una aplicación Express es utilizado para definir lo que debe hacer el servidor cuando recibe una solicitud HTTP GET (solicitud para recuperar datos, como el contenido de una pagina, de un servidor) a una determinada ruta.
+
+```javascript
+app.get("/", (req, res) => {
+    // req: Es el objeto que representa la solicitud HTTP entrante. Contiene información sobre la solicitud del cliente, como las cabeceras, los parámetros de la URL, los datos del cuerpo, etc.
+    // res: Este es el objeto de "respuesta" que Express pasa a tu función callback. Este objeto contiene varios métodos que te permiten enviar una respuesta HTTP de vuelta al cliente (normalmente un navegador web).......
+    // basicamente es el objeto que te permite controlar todo lo relacionado con la respuesta HTTP que tu servidor enviará de vuelta al cliente.
+    //  * el objeto res en sí mismo no se envía al cliente. El objeto res es una herramienta proporcionada por Express que te permite construir la respuesta HTTP que sí se enviará al cliente
+    // * .......como .send() que se usa en el código para enviar una cadena de texto (o json, objetos y más) como respuesta.
+    res.send("Inicio");
+});
+```
+
+// Similar a la anterior, pero esta ruta responde a "/nosotros" enviando "Nosotrosssss".
+
+```javascript
+app.get("/nosotros", (req, res) => {
+    res.send("Nosotros");
+});
+app.get("/contacto", (req, res) => {
+    res.send("Contacto");
+});
+```
+
+// - Escucha del servidor. 1. Esta línea inicia un servidor HTTP (es un proceso que escucha activamente las solicitudes HTTP) para que escuche en el puerto especificado. 2. Callback: Una vez que el servidor está en funcionamiento, imprimirá un mensaje en la consola indicando en qué puerto se encuentra.
+
+// con .listen arrancamos el servidor
+// Por lo tanto, "escuchar" en este contexto significa que tu aplicación Express está esperando activamente por conexiones entrantes en el puerto especificado. Cuando alguien intenta conectarse a tu aplicación (por ejemplo, visitando tu sitio web en un navegador), Express manejará esa conexión según las rutas y funciones que hayas definido con métodos como .get().
+
+// Es como si tu aplicación fuera un centro de llamadas telefónicas: una vez que "empieza a escuchar" (o en este caso, una vez que se inicia con app.listen()), está esperando que "suene el teléfono" (es decir, que llegue una solicitud HTTP) para tomar alguna acción.
+// * para más informacion ve a ciclosolicitud-respuesta.mkd
+```javascript
+app.listen(port, () => {
+    console.log(`El servidor está funcionando en el puerto ${port}`);
+});
+```

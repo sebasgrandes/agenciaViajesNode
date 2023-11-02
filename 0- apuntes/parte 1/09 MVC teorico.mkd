@@ -1,0 +1,25 @@
+# qué es el MVC
+
+MVC (Modelo-Vista-Controlador) es un patrón de diseño de software que se utiliza en ingeniería de software con el objetivo de separar una aplicación en tres componentes principales: Modelo, Vista y Controlador. Este patrón es especialmente común en el desarrollo de aplicaciones web y móviles, y su principal beneficio es que facilita la organización del código y hace más sencilla la tarea de mantenimiento y escalabilidad de la aplicación. Veamos cada componente en detalle:
+
+### Modelo (Model)
+
+El Modelo representa la lógica de negocio y los datos. Gestiona las reglas, los datos y el estado de la aplicación. Por lo general, el modelo se comunica con una base de datos y actualiza la vista cada vez que los datos cambian. No tiene ninguna lógica específica para representar esos datos en una interfaz de usuario.
+
+### Vista (View)
+
+La Vista es lo que el usuario final interactúa en su dispositivo. Se trata de todo lo que el usuario experimenta visualmente en la página: texto, botones, imágenes, etc. Cuando el modelo cambia, la vista se actualiza automáticamente para reflejar esos cambios. La vista está completamente separada de los modelos y controladores, lo que permite a los diseñadores y desarrolladores trabajar de forma más independiente.
+
+### Controlador (Controller)
+
+El Controlador actúa como intermediario entre el Modelo y la Vista. Escucha los eventos generados tanto por el usuario como por la vista y ejecuta la lógica de negocio apropiada, a menudo actualizando el modelo o la vista como resultado.
+
+---
+
+Por ejemplo, supongamos que tienes una aplicación web para una agencia de viajes. Aquí es cómo podrías dividir esa aplicación utilizando el patrón MVC:
+
+-   **Modelo**: Tendrías clases o módulos que interactúan con la base de datos, manejando todo desde la recuperación de información sobre viajes hasta la reserva de boletos.
+-   **Vista**: Aquí tendrías todas las páginas web (HTML, CSS, etc.) que los usuarios ven y con las cuales interactúan. Esto incluiría la lista de viajes disponibles, los detalles del viaje, el formulario de reserva, etc.
+-   **Controlador**: Este sería el código que toma las solicitudes del usuario, como "quiero ver el viaje X" o "quiero reservar el viaje Y", y actualiza tanto el modelo como la vista según sea necesario.
+
+Este patrón de diseño es beneficioso porque separa las preocupaciones, lo que hace que el código sea más fácil de mantener y escalar. Cada parte tiene una responsabilidad específica y no necesita saber cómo funcionan las demás partes. Esto también hace que sea más fácil trabajar en equipos, ya que diferentes personas pueden trabajar en el modelo, la vista y el controlador sin afectar el trabajo de los demás.

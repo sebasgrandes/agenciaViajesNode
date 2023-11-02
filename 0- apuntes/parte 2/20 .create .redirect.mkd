@@ -1,0 +1,20 @@
+# que hace el .create? y el .rest.redirect
+
+El método `.create()` en Sequelize se utiliza para insertar un nuevo registro en la tabla de la base de datos que el modelo representa. En el caso de tu código:
+
+```javascript
+Testimonio.create({
+    nombre,
+    correo: email,
+    mensaje,
+});
+```
+
+Esto creará un nuevo registro en la tabla asociada con el modelo `Testimonio`, y los campos `nombre`, `correo` y `mensaje` se llenarán con los valores que se han extraído de `req.body` a través del objeto destructurado `{ nombre, email, mensaje }`.
+
+Por otro lado, `res.redirect("/testimoniales");` es una instrucción en Express.js que redirige al cliente a la ruta especificada, en este caso "/testimoniales". Este redireccionamiento se realiza en el lado del cliente, lo que significa que el navegador del cliente será redirigido a la URL especificada.
+
+En resumen:
+
+-   `Testimonio.create()` inserta un nuevo registro en la base de datos.
+-   `res.redirect("/testimoniales");` redirige al usuario a la página de "testimoniales".

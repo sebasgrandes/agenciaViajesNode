@@ -1,0 +1,60 @@
+# cual es la diferencia entre un "export" y un "export default" en js?
+
+En JavaScript, `export` y `export default` son dos maneras de exportar módulos, pero tienen algunas diferencias importantes.
+
+### `export`
+
+1. **Nombrado**: Cuando usas `export`, estás haciendo una exportación con nombre. Puedes tener múltiples exportaciones con nombre en un solo archivo.
+
+    ```javascript
+    // modulo.js
+    export const variable1 = "algo";
+    export function funcion1() {
+        /* ... */
+    }
+    ```
+
+2. **Importación**: Debes importar usando el mismo nombre que se usó para exportar y encerrarlo entre llaves `{}`.
+
+    ```javascript
+    // otroArchivo.js
+    import { variable1, funcion1 } from "./modulo";
+    ```
+
+3. **Alias**: Puedes usar un alias al importar.
+
+    ```javascript
+    // otroArchivo.js
+    import { variable1 as v1, funcion1 as f1 } from "./modulo";
+    ```
+
+### `export default`
+
+1. **Sin nombre**: `export default` es una exportación sin nombre. Un archivo sólo puede tener un `export default`.
+
+    ```javascript
+    // modulo.js
+    export default function () {
+        /* ... */
+    }
+    ```
+
+2. **Importación**: No necesitas usar llaves `{}` para importar y puedes asignar cualquier nombre a la importación.
+
+    ```javascript
+    // otroArchivo.js
+    import cualquierNombre from "./modulo";
+    ```
+
+3. **Facilidad de Uso**: Generalmente, se usa cuando un módulo sólo tiene una cosa para exportar.
+
+### Comparación
+
+|                             | `export`                           | `export default`                         |
+| --------------------------- | ---------------------------------- | ---------------------------------------- |
+| **Nombrado**                | Sí                                 | No                                       |
+| **Múltiples por archivo**   | Sí                                 | No                                       |
+| **Sintaxis de importación** | Debe usar el mismo nombre y llaves | Puede usar cualquier nombre y sin llaves |
+| **Alias**                   | Sí                                 | No (No es necesario)                     |
+
+Ambos tipos de exportación pueden coexistir en el mismo archivo, pero es una buena práctica usar uno u otro para mantener la coherencia y la legibilidad del código.

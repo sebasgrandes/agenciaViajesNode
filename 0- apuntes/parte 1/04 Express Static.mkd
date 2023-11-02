@@ -1,0 +1,32 @@
+# app.use(express.static("public"));
+
+Por supuesto, el código `app.use(express.static("public"));` es una línea comúnmente usada en aplicaciones Express para servir archivos estáticos. Vamos a descomponerlo paso a paso:
+
+### Componentes
+
+-   `app`: Es una instancia de una aplicación Express.
+-   `use`: Es el método para montar middleware en la aplicación.
+-   `express.static`: Es una función middleware incorporada en Express para servir archivos estáticos.
+-   `"public"`: Es el nombre del directorio donde se almacenarán los archivos estáticos que quieres servir.
+
+### ¿Qué hace cada parte?
+
+1. **`express.static("public")`**: La función `express.static` toma un argumento, el nombre del directorio que contiene los archivos estáticos que deseas servir. En este caso, el directorio se llama "public". Esta función retorna un nuevo middleware que será usado por Express para servir esos archivos estáticos.
+
+2. **`app.use(...)`**: El método `use` monta el middleware en la aplicación. Esto significa que el middleware se ejecutará cada vez que llegue una solicitud que coincida con la ruta o patrón especificado. En este caso, no se ha especificado ninguna ruta, por lo que se aplicará a todas las rutas.
+
+### ¿Cómo funciona?
+
+Cuando un cliente (como un navegador web) realiza una solicitud a tu servidor Express, este middleware se activará si la solicitud coincide con un archivo estático dentro del directorio "public".
+
+Por ejemplo, si tienes un archivo llamado "imagen.jpg" en un directorio llamado "public" y alguien intenta acceder a "http://tudominio.com/imagen.jpg", Express servirá automáticamente ese archivo desde el directorio "public".
+
+### Resumen
+
+En resumen, `app.use(express.static("public"));` le dice a tu aplicación Express que para cualquier solicitud que coincida con un archivo dentro del directorio "public", debe servir ese archivo automáticamente. Esto es muy útil para servir cosas como imágenes, archivos CSS, y archivos JavaScript que el cliente necesitará para cargar completamente la página web.
+
+# ruta absoluta y relativa en los links de los archivos .pug, sirviendo archivos estaticos de la carpeta public
+
+### Ruta relativa y Ruta absoluta
+
+**PARA MAS INFO SOBRE LA RUTA RELATIVA Y ABSOLUTA EN TU APP EXPRESS, Y LA CARPETA PUBLICA, VE A -> 04 ruta rela y abs, public.mkd**

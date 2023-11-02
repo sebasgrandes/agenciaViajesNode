@@ -1,0 +1,11 @@
+# que es gitignore... acabo de crear ese archivo para subir mi proyecto. también puse .env y node_modules/ dentro
+
+El archivo `.gitignore` es un archivo de texto especial utilizado por Git, el sistema de control de versiones. Su propósito es indicarle a Git qué archivos o directorios deben ser ignorados, es decir, no deben ser rastreados ni incluidos en el repositorio. Al subir tu proyecto a un repositorio, como GitHub, es importante no incluir archivos o carpetas que contengan información sensible, datos personales, o que simplemente no sean necesarios para la ejecución del proyecto.
+
+En tu caso, has añadido `.env` y `node_modules/` al `.gitignore`, lo cual es una práctica común y recomendada por las siguientes razones:
+
+1. **.env:** Este archivo suele contener información sensible como claves de API, contraseñas, y otras variables de entorno. Al ignorarlo, te aseguras de que esta información confidencial no se suba al repositorio público y, por ende, no sea accesible para personas no autorizadas.
+
+2. **node_modules/:** Esta carpeta contiene todas las dependencias y módulos de Node.js que tu proyecto utiliza. Estos módulos suelen ser pesados y son fácilmente reproducibles al ejecutar `npm install` o `yarn` en cualquier entorno donde se descargue tu proyecto. Subir esta carpeta al repositorio aumentaría innecesariamente el tamaño del repositorio y podría causar conflictos si otras personas trabajan en el mismo proyecto.
+
+Crear y configurar correctamente el archivo `.gitignore` es una práctica crucial para mantener la seguridad, la eficiencia y la limpieza en tus proyectos de desarrollo. Esto permite que tú y otros colaboradores podáis centraros en el código fuente y las características importantes del proyecto, sin preocuparos por subir archivos innecesarios o sensibles al repositorio.

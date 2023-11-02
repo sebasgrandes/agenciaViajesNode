@@ -1,0 +1,121 @@
+# sobre app.set("view engine", "pug");
+
+Código 1: `app.set("view engine", "pug");`
+
+1. \*\*`app.set`: Este método es parte de la API de Express y se utiliza para asignar diversas opciones de configuración a la aplicación.
+
+2. \*\*`"view engine"`: Es una clave de configuración específica que indica a Express qué motor de vistas utilizar para renderizar las plantillas.
+
+3. \*\*`"pug"`: Este valor indica que vamos a utilizar Pug como motor de plantillas.
+
+Entonces, al poner `app.set("view engine", "pug");`, estás configurando tu aplicación para que utilice Pug como el motor de vistas. Esto significa que cuando intentes renderizar plantillas, Express buscará automáticamente archivos con la extensión `.pug` y los procesará utilizando el motor de plantillas Pug.
+
+# sobre .render
+
+Código 2: `res.render("nosotros")`
+
+1. \*\*`res`: Este objeto representa la respuesta HTTP que enviará el servidor al cliente. Es uno de los parámetros del middleware en Express.
+
+2. \*\*`.render`: Este método es específico de la respuesta (`res`) y se utiliza para renderizar una vista y enviar el HTML renderizado como respuesta.
+
+3. \*\*`"nosotros"`: Este argumento indica el nombre del archivo de la plantilla que deseas renderizar. En este caso, se buscará un archivo llamado `nosotros.pug` en la carpeta de vistas (por defecto, esta carpeta es llamada `views`).
+
+Entonces, `res.render("nosotros")` buscará una plantilla llamada `nosotros.pug` en la carpeta de vistas, la renderizará (es decir, generará el HTML correspondiente) y enviará ese HTML como respuesta al cliente.
+
+Si tienes más preguntas o necesitas más detalles, no dudes en preguntar.
+
+# ¿Qué es un motor de vistas?
+
+Un motor de vistas es una biblioteca o un marco que te permite incrustar datos dentro de plantillas HTML. Estas plantillas son entonces "compiladas" o "renderizadas" para producir el HTML final que se enviará al cliente. Un motor de vistas te permite separar la lógica de la aplicación del HTML, haciendo que el código sea más fácil de mantener y reutilizar.
+
+Por ejemplo, si estás usando el motor de vistas Pug, podrías tener una plantilla `saludo.pug` que se vea así:
+
+```pug
+html
+  body
+    h1= mensaje
+```
+
+Desde tu código de servidor, podrías "renderizar" esta plantilla e incrustar un mensaje:
+
+```javascript
+res.render("saludo", { mensaje: "Hola, mundo" });
+```
+
+El motor de vistas toma la plantilla y los datos, los combina y produce el HTML final que se enviará al cliente:
+
+```html
+<html>
+    <body>
+        <h1>Hola, mundo</h1>
+    </body>
+</html>
+```
+
+# ¿Qué significa "renderizar plantillas"?
+
+"Renderizar" una plantilla significa tomar una plantilla y datos separados y combinarlos para producir HTML final (o cualquier otro formato de salida que el motor de vistas pueda generar).
+
+En el contexto de una aplicación web, este HTML se envía como respuesta al navegador del cliente, que luego lo muestra al usuario. Renderizar es esencialmente el proceso de aplicar datos a una plantilla para crear contenido dinámico.
+
+En el caso de tu ejemplo `res.render("nosotros")`, la función `render` toma la plantilla denominada "nosotros" (que debería ser un archivo `nosotros.pug` en la carpeta de vistas), la compila y envía el HTML generado como respuesta al cliente.
+
+Espero que estas explicaciones te aclaren qué son los motores de vistas y qué significa "renderizar plantillas". Si tienes más preguntas, no dudes en hacerlas.
+
+# aclaracion sobre "motor de vistas utilizar para renderizar las plantillas"
+
+Lamento la confusión. Intentaré explicarlo de una manera más sencilla.
+
+Un motor de vistas es un programa que toma datos y un "modelo" de una página web (llamado "plantilla") y los combina para crear una página web completa que se puede mostrar en un navegador.
+
+Imagina que tienes una plantilla que se ve más o menos así:
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mi página</title>
+    </head>
+    <body>
+        <h1>Bienvenido, [nombre del usuario]</h1>
+    </body>
+</html>
+```
+
+Y tienes diferentes usuarios que visitan tu página: Ana, Luis, y José.
+
+No querrías crear una página web separada para cada uno de ellos. Aquí es donde entra en juego el motor de vistas.
+
+Puedes usar la plantilla y decirle al motor de vistas: "Oye, toma esta plantilla y cambia '[nombre del usuario]' por el nombre del usuario actual". El motor de vistas lo hace por ti automáticamente.
+
+Entonces, para Ana, la página se vería así:
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mi página</title>
+    </head>
+    <body>
+        <h1>Bienvenido, Ana</h1>
+    </body>
+</html>
+```
+
+Para Luis:
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mi página</title>
+    </head>
+    <body>
+        <h1>Bienvenido, Luis</h1>
+    </body>
+</html>
+```
+
+Y así sucesivamente.
+
+En resumen, un motor de vistas te permite crear páginas web dinámicas sin tener que crear una página web separada para cada pequeña variación. Espero que esto aclare un poco más qué es un motor de vistas.

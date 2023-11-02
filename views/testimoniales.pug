@@ -1,0 +1,31 @@
+extends ./layout/index
+block contenidoLayout
+    main.container.mt-5
+        h1.text-center.mt-5 #{pagina}
+        blockquote.text-center Lee sobre nuestros clientes y sus experiencias
+        include ./layout/bloqueTestimoniales
+        .row
+            .col-md-12
+                h2.d-block.w-100.text-center Agrega un testimonial
+                //- p= JSON.stringify(errores)
+                    //- JSON.stringify -> toma un objeto JavaScript o un array y devuelve una cadena de texto JSON que representa al objeto o array (original).
+                //- si hay errores, muestra las alertas
+                if(errores)
+                    each error in errores
+                        .alert.col.alert-danger.text-center #{error.mensaje}
+            .row.justify-content-center.col
+                .col-md-8
+                    form(action="", method="post")
+                        //- ten cuidao con las variables. checka el "value= nombre". lo debemos poner sin #, asi solo
+                        .form-group
+                            label(for="nombre") Nombre
+                            input#nombre(type="text", placeholder="Tu nombre", name="nombre", class="form-control", value= nombre)
+                        .form-group
+                            label(for="correo") Correo electrónico
+                            input#correo(type="text", placeholder="Tu correo", name="email", class="form-control", value= email)
+                        .form-group
+                            label(for="mensaje") Mensaje 
+                            textarea#mensaje(name="mensaje", placeholder="Deja un mensaje aqui", class="form-control", rows=3)
+                                | #{mensaje}
+                                //- también puedes ponerle al final del textarea un "=mensaje"
+                        input.btn.btn-success.btn-block(type="submit")

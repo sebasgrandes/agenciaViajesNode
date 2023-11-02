@@ -1,0 +1,23 @@
+# sobre :slug req.params y .findOne
+
+Claro, vamos a desglosar las partes del código que tienes y que te generan dudas.
+
+### `router.get("/viajes/:slug", paginaViaje);`
+
+En esta línea, `:slug` es un parámetro de ruta. Este es un marcador de posición para un valor que se espera sea parte de la URL. Por ejemplo, si accedes a la URL `http://localhost:4000/viajes/mi-viaje`, el valor de `:slug` sería `mi-viaje`.
+
+### `const { slug } = req.params;`
+
+Aquí, `req.params` es un objeto que contiene propiedades que se asignan a los nombres de los parámetros de ruta definidos en la URL. En tu caso, como has definido un parámetro llamado `slug`, puedes acceder a su valor a través de `req.params.slug`. La desestructuración `{ slug } = req.params` simplemente extrae ese valor para que puedas usarlo más fácilmente en tu código.
+
+### `.findOne({ where: { slug } })`
+
+El método `findOne` es una función proporcionada por muchos ORMs (Object-Relational Mapping) como Sequelize para buscar un solo registro en una base de datos que coincida con las condiciones dadas. La parte `{ where: { slug } }` es un objeto que define estas condiciones. En tu caso, está buscando un único registro en la tabla `Viaje` donde la columna `slug` coincida con el valor del `slug` que has extraído de `req.params`.
+
+En resumen:
+
+-   `:slug` es un parámetro de ruta que espera un valor en la URL.
+-   `req.params` es un objeto que contiene los valores de todos los parámetros de ruta.
+-   `.findOne({ where: { slug } })` busca un único registro en la tabla `Viaje` donde la columna `slug` coincida con el valor que has obtenido.
+
+Espero que esto aclare tus dudas.

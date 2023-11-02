@@ -1,0 +1,31 @@
+.row
+    //- p #{JSON.stringify(viajes)} // es un array con objetos (filas de la tabla) dentro
+    each viaje in (viajes)
+        .col-md-6.col-lg-4.mb-4
+            .card
+                img.card-img-top(src=`/img/destinos_${viaje.imagen}.jpg`, alt=`imagen ${imagen}`, class="img-fluid")
+                .card-body
+                    h2 #{viaje.titulo}
+                    p
+                        svg.icon.icon-tabler.icon-tabler-calendar-due(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round')
+                            path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                            path(d='M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z')
+                            path(d='M16 3v4')
+                            path(d='M8 3v4')
+                            path(d='M4 11h16')
+                            path(d='M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0')
+                        | #{viaje.fecha_ida} - #{viaje.fecha_vuelta}
+                    p
+                        svg.icon.icon-tabler.icon-tabler-luggage(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round')
+                                path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                                path(d='M6 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z')
+                                path(d='M9 6v-1a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v1')
+                                path(d='M6 10h12')
+                                path(d='M6 16h12')
+                                path(d='M9 20v1')
+                                path(d='M15 20v1')
+                        //- para mas informacion sobre el "|" ve a 12 pipe y texto literal pug.mkd
+                        //- basicamente significa colocar texto plano o sin formato, tal como esta... sin embargo, en el caso pug sí se puede inclir interpolaciones de variables (es decir, la inserción del valor de una variable dentro de una cadena de texto)
+                        | #{viaje.disponibles} boletos disponibles
+                    p= viaje.descripcion.substr(0, 100) + "..."
+                    a(href=`/viajes/${viaje.slug}`, class="btn btn-success btn-block") Más información

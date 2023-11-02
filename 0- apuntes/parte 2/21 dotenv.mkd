@@ -1,0 +1,9 @@
+# explicame que hace esto: `import dotenv from "dotenv/config";`
+
+La línea `import dotenv from "dotenv/config";` en JavaScript realiza dos tareas principales relacionadas con la gestión de variables de entorno:
+
+1. **Importa el paquete `dotenv`:** `dotenv` es un módulo en Node.js que carga variables de entorno desde un archivo `.env` en el directorio raíz de tu proyecto. Este archivo `.env` generalmente contiene configuraciones sensibles o específicas del entorno que no deseas exponer en tu código fuente, como claves de API, secretos, URLs de bases de datos, etc.
+
+2. **Ejecuta la configuración de `dotenv`:** Al importar desde `"dotenv/config"`, no solo estás importando el paquete, sino que también estás ejecutando automáticamente la función `config()` de `dotenv`. Esta función lee el archivo `.env`, parsea el contenido y carga las variables de entorno encontradas en ese archivo en el objeto `process.env` de Node.js. Esto significa que, después de esta línea de código, puedes acceder a las variables de entorno en tu aplicación a través de `process.env.NOMBRE_DE_TU_VARIABLE`.
+
+En resumen, esta línea importa el módulo `dotenv` y automáticamente carga las variables de entorno desde tu archivo `.env` al espacio de tu aplicación, haciéndolas accesibles a través de `process.env`. Esto es especialmente útil para mantener tu código limpio y seguro, al no tener que incluir información sensible directamente en tus archivos de código fuente.

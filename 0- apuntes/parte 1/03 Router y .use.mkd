@@ -1,0 +1,111 @@
+### ¿Qué significa crear un `router`?
+
+Un "router" en Express es un objeto que te permite definir múltiples rutas y sus manejadores en un solo lugar, y luego usar esos manejadores de ruta en otra parte de tu aplicación. En otras palabras, te ayuda a separar la lógica de enrutamiento de tu aplicación en módulos más pequeños y más fáciles de manejar.
+
+Cuando haces:
+
+```javascript
+const router = express.Router();
+```
+
+Estás creando una nueva instancia de un router que puedes configurar para manejar rutas específicas. Esto es especialmente útil en aplicaciones grandes o cuando deseas separar la lógica de enrutamiento en diferentes archivos.
+
+### uso del router
+
+```javascript
+app.use("/", router);
+```
+
+Uso del Router: Aquí estás diciendo a tu aplicación Express que utilice el objeto router que has definido para manejar las rutas que empiezan con /. Esto conecta las rutas que has definido en tu archivo de routes con tu aplicación Express.
+
+### ¿Qué significa crear un `export default`?
+
+La sintaxis `export default` en JavaScript se utiliza para exportar un solo miembro (puede ser una función, un objeto, una variable, etc.) desde un módulo. Esto es útil cuando tienes un módulo que solo necesita exportar una cosa.
+
+Cuando haces:
+
+```javascript
+export default router;
+```
+
+Estás haciendo que el objeto `router` sea el export por defecto de ese módulo. Esto significa que cuando importas este módulo en otro archivo, lo que obtienes por defecto es este objeto `router`.
+
+### ¿Qué hace el `.use()`?
+
+El método `.use()` en Express se usa para instalar middleware en la aplicación. Los middleware son funciones que tienen acceso al objeto de solicitud (`req`), al objeto de respuesta (`res`), y al siguiente middleware en el ciclo de solicitud-respuesta de la aplicación.
+
+Cuando haces:
+
+```javascript
+app.use("/", router);
+```
+
+Estás diciendo que para todas las rutas que comienzan con `/`, la aplicación debe usar el objeto `router` que has definido. En este caso, el `router` ya tiene manejadores de ruta para `/`, `/nosotros`, y `/contacto`, por lo que esta línea efectivamente conecta esos manejadores de ruta con tu aplicación Express.
+
+Espero que esto aclare tus dudas. Si tienes más preguntas, no dudes en preguntar.
+
+### sobre el .use (middleware)
+
+Por supuesto. El método `.use()` en Express es fundamental para incorporar middleware en tu aplicación. Pero, ¿qué es middleware? En el contexto de una aplicación web, el middleware es una función o conjunto de funciones que se ejecutan entre la recepción de una solicitud HTTP y el envío de una respuesta.
+
+Aquí hay una analogía simple: imagina que el flujo de una solicitud web a través de tu aplicación es como una línea de ensamblaje en una fábrica. Cada pieza de middleware es una "estación" en esa línea de ensamblaje, donde se puede hacer algo con la solicitud o la respuesta antes de que pasen a la siguiente estación.
+
+### ¿Cómo funciona `.use()`?
+
+El método `.use()` toma al menos un argumento: la función middleware que quieres añadir. Opcionalmente, puedes especificar una ruta como primer argumento, lo cual restringe el middleware para que sólo se aplique a esa ruta.
+
+```javascript
+// Middleware que se aplica a todas las rutas
+app.use((req, res, next) => {
+    console.log("Este middleware se ejecuta para todas las rutas");
+    next();
+});
+
+// Middleware que se aplica sólo a la ruta "/"
+app.use("/", (req, res, next) => {
+    console.log('Este middleware se ejecuta sólo para la ruta "/"');
+    next();
+});
+```
+
+### Orden Importante
+
+El orden en que incorporas middleware en tu aplicación es crucial. Express ejecuta las funciones middleware en el orden en que se añaden. Por eso es importante poner `app.use()` para middleware general, como el logging o el manejo de cookies, antes de las rutas específicas.
+
+### `next()`
+
+Observarás el uso de la función `next()` en el middleware. Esta función pasa el control al siguiente middleware en la pila. Si olvidas llamar a `next()`, la solicitud quedará colgada y el cliente (por lo general, un navegador web) se quedará esperando indefinidamente.
+
+### Ejemplo en contexto
+
+Supongamos que tienes el siguiente código:
+
+```javascript
+app.use("/", router);
+```
+
+Aquí, el método `.use()` está diciendo que para cualquier ruta que comience con `/` (que serían prácticamente todas las rutas en una aplicación web típica), Express debería usar el objeto `router` que has definido en otro archivo para manejar esa solicitud y respuesta.
+
+Espero que esto aclare cómo funciona `.use()` en Express. Si tienes más preguntas, no dudes en hacerlas.
+
+### que es una ruta? / a que te refieres con "cualquier ruta que comience con "/"
+
+En el contexto de una aplicación web, una "ruta" es la parte de la URL que viene después del nombre de dominio. Por ejemplo, en la URL `http://example.com/nosotros`, la ruta es `/nosotros`.
+
+Cuando decimos "cualquier ruta que comience con `/`", nos referimos a todas las rutas posibles en la aplicación, ya que en una URL típica, la ruta siempre comenzará con una barra inclinada (`/`). En otras palabras, si pones:
+
+```javascript
+app.use("/", router);
+```
+
+**Estás diciendo que cualquier petición que llegue a tu servidor, sin importar cuál sea la ruta después del dominio (por ejemplo, `/`, `/nosotros`, `/contacto`, etc.), será manejada por el `router` que has definido.**
+
+Es posible especificar una subruta como prefijo si sólo quieres que el `router` maneje rutas que comiencen específicamente con ese prefijo. Por ejemplo:
+
+```javascript
+app.use("/api", apiRouter);
+```
+
+En este caso, sólo las rutas que comiencen con `/api` (como `/api/users`, `/api/posts`, etc.) serán manejadas por `apiRouter`.
+
+Por lo tanto, cuando usas `app.use("/", router);`, estás aplicando el `router` a todas las rutas de la aplicación, ya que todas las rutas en una URL típica comenzarán con `/`.

@@ -1,0 +1,22 @@
+{
+    "name": "agenciadeviajesebastian",
+    "version": "1.0.0",
+    "description": "agencia de viajes creada por sebastian",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon index.js"
+    },
+    "author": "Sebastian Grandes",
+    "type": "module",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "mysql2": "^3.6.2",
+        "pug": "^3.0.2",
+        "sequelize": "^6.33.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+}

@@ -1,0 +1,49 @@
+extends ./layout/index
+block contenidoLayout
+    main.container.mt-5
+        .row
+            .col-md-5
+                img(src=`/img/destinos_${viaje.imagen}_ln.jpg`, alt=`imagen ${viaje.imagen}`, class="img-fluid")
+            .col-md-7
+                h1 #{viaje.titulo}
+                p
+                    svg.icon.icon-tabler.icon-tabler-calendar-due(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round')
+                        path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                        path(d='M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z')
+                        path(d='M16 3v4')
+                        path(d='M8 3v4')
+                        path(d='M4 11h16')
+                        path(d='M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0')
+                    | #{viaje.fecha_ida} - #{viaje.fecha_vuelta}
+                p
+                    svg.icon.icon-tabler.icon-tabler-luggage(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round')
+                            path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                            path(d='M6 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z')
+                            path(d='M9 6v-1a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v1')
+                            path(d='M6 10h12')
+                            path(d='M6 16h12')
+                            path(d='M9 20v1')
+                            path(d='M15 20v1')
+                    | #{viaje.disponibles} boletos disponibles
+                p
+                    svg.icon.icon-tabler.icon-tabler-receipt-2(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round')
+                        path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                        path(d='M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2')
+                        path(d='M14 8h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5m2 0v1.5m0 -9v1.5')
+                    | #{viaje.precio}
+                p= viaje.descripcion
+    .listado-iconos
+        .container.mt-5.py-5.text-center
+            .row
+                .col-md-4
+                    img(src="/img/icono_seguridad.svg", alt="icono seguridad", class="img-fluid mb-4")
+                    h2.mb-4 La mejor seguridad
+                    p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde voluptatum amet architecto dignissimos consectetur eum quos omnis reprehenderit veniam, quod perferendis, minima eaque doloribus saepe ad? Aspernatur excepturi facilis iusto.
+                .col-md-4
+                    img(src="/img/icono_precios.svg", alt="icono precios", class="img-fluid mb-4")
+                    h2.mb-4 Los mejores precios
+                    p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde voluptatum amet architecto dignissimos consectetur eum quos omnis reprehenderit veniam, quod perferendis, minima eaque doloribus saepe ad? Aspernatur excepturi facilis iusto.
+                .col-md-4
+                    img(src="/img/icono_destinos.svg", alt="icono destinos", class="img-fluid mb-4")
+                    h2.mb-4 Los mejores destinos
+                    p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde voluptatum amet architecto dignissimos consectetur eum quos omnis reprehenderit veniam, quod perferendis, minima eaque doloribus saepe ad? Aspernatur excepturi facilis iusto.

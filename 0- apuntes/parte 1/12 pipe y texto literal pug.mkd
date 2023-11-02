@@ -1,0 +1,73 @@
+# sobre el simbolo "|"
+
+Cuando hablo de "texto literal" en el contexto de Pug, me refiero a texto que debe ser insertado tal como está en el archivo HTML resultante, sin ser interpretado como código o marcado adicional. En otras palabras, el texto después del símbolo `|` se tratará como contenido de texto puro para el elemento HTML asociado, y no como una etiqueta, atributo o elemento adicional de HTML.
+
+Por ejemplo, si tienes el siguiente código en Pug:
+
+```pug
+p
+  | Hola, esto es un texto.
+```
+
+Este se convertirá en:
+
+```html
+<p>Hola, esto es un texto.</p>
+```
+
+El texto "Hola, esto es un texto." se inserta como está, dentro del elemento `<p>`. No se interpreta como una etiqueta adicional ni como un atributo; simplemente se convierte en el contenido del elemento `<p>` en el HTML resultante.
+
+# si no se interpreta como codigo entonces por que puedo usar el #{}?
+
+Tienes toda la razón en señalar esa aparente contradicción. Aunque el símbolo `|` se usa para indicar texto literal, en Pug también se puede usar la interpolación de variables dentro de ese "texto literal" mediante la sintaxis `#{variable}`.
+
+Cuando usas `#{variable}` dentro de una línea precedida por `|`, estás diciendo algo como "incluye este texto tal como está, pero reemplaza `#{variable}` con el valor actual de esa variable".
+
+Así que, aunque el texto se trata como "literal" en el sentido de que no se interpreta como nuevas etiquetas o atributos HTML, todavía hay una cierta cantidad de procesamiento que ocurre para insertar el valor de la variable.
+
+Entonces, en tu línea de código:
+
+```pug
+| #{viaje.disponibles} boletos disponibles
+```
+
+El texto "boletos disponibles" se insertará tal cual en el HTML resultante, pero `#{viaje.disponibles}` será reemplazado por el valor actual de la variable `viaje.disponibles`.
+
+Es una forma de permitir contenido dinámico dentro de un contexto que, por lo demás, trata el texto como literal.
+
+# con texto literal te refieres a que no se interpreta solo como nuevas etiquetas o atributos html... o también incluiría variables?
+
+Lamento la confusión anterior. En el contexto de Pug, cuando digo "texto literal", me refiero generalmente a texto que se incluirá en el HTML final tal como está, sin interpretarse como nuevas etiquetas o atributos de HTML. Sin embargo, como señalas, este "texto literal" aún puede incluir interpolaciones de variables utilizando la sintaxis `#{variable}`.
+
+Por lo tanto, el texto literal en Pug puede incluir contenido dinámico mediante la interpolación de variables. El símbolo `|` permite que escribas texto que se incluirá directamente como contenido de un elemento HTML, pero con la flexibilidad de incorporar variables dentro de ese texto.
+
+Entonces, para aclarar: en el caso de Pug, el "texto literal" sí puede incluir interpolaciones de variables.
+
+# y en otros casos el texto literal no incluyen ni variables ni etietas html o similares cierto?
+
+Correcto, en la mayoría de los otros contextos de programación, "texto literal" suele significar una cadena de texto que se toma tal como es, sin ninguna interpretación adicional. No se evaluarían variables, ni se interpretarían etiquetas o caracteres especiales como comandos o instrucciones. Sería, en ese sentido, "literalmente" el texto que se ve.
+
+Por ejemplo, en muchos lenguajes de programación, si tienes una cadena de texto entre comillas, como `"esto es un texto"`, esa cadena se considera un texto literal. No se interpretan variables ni se ejecutan comandos dentro de ella.
+
+Pug es un poco especial en este sentido porque, aunque utiliza el símbolo `|` para indicar que el texto debe ser interpretado como texto literal dentro del HTML resultante, aún permite la interpolación de variables dentro de ese texto. Es una especie de "texto literal mejorado", por así decirlo.
+
+# a que te refieres con "interpolaciones de variables"?
+
+La "interpolación de variables" es una técnica que permite insertar el valor de una variable dentro de una cadena de texto. Esto es especialmente útil cuando estás generando contenido dinámico, es decir, contenido que puede cambiar en función de ciertas variables.
+
+En el contexto del lenguaje de plantillas Pug, la sintaxis `#{variable}` se utiliza para la interpolación de variables. Cuando Pug ve esta sintaxis dentro de una cadena de texto, reemplaza `#{variable}` con el valor actual de `variable`.
+
+Por ejemplo, si tienes el siguiente código Pug:
+
+```pug
+- let nombre = "Juan"
+p Hola #{nombre}, ¿cómo estás?
+```
+
+Cuando este código se compila a HTML, la variable `nombre` se reemplaza por su valor, que en este caso es "Juan". El HTML resultante sería:
+
+```html
+<p>Hola Juan, ¿cómo estás?</p>
+```
+
+Entonces, la interpolación de variables te permite crear cadenas de texto que incluyen valores dinámicos, facilitando la generación de contenido que puede cambiar en función de ciertas condiciones o variables.

@@ -1,0 +1,68 @@
+# Model
+
+**Sobre mi codigo colocado en el archivo Viajes.js de la carpeta models**
+
+Por supuesto, desglosaré el código línea por línea para que puedas entender cada parte del archivo `Viajes.js`.
+
+```javascript
+import Sequelize from "sequelize";
+```
+
+Esta línea importa la biblioteca `Sequelize` que proporciona las herramientas para interactuar con bases de datos SQL en un entorno Node.js.
+
+```javascript
+import db from "../config/db.js";
+```
+
+Aquí importas la configuración de la base de datos que definiste en otro archivo (`db.js` en la carpeta `config`). Esta configuración debería ser una instancia de `Sequelize`, que ya está configurada para conectarse a tu base de datos.
+
+```javascript
+export const Viaje = db.define("viajes", {
+```
+
+Estás definiendo un nuevo modelo llamado `Viaje` utilizando el método `define` en tu instancia `db` de Sequelize. El primer argumento `"viajes"` es el nombre de la tabla en tu base de datos que este modelo representa.
+
+```javascript
+    titulo: {
+        type: Sequelize.STRING,
+    },
+```
+
+Defines una columna `titulo` en la tabla `viajes`. El campo `type` especifica que el tipo de datos para esta columna será un `STRING`.
+
+```javascript
+    precio: {
+        type: Sequelize.STRING,
+    },
+```
+
+Al igual que con `titulo`, aquí estás definiendo otra columna llamada `precio` que también será de tipo `STRING`.
+
+```javascript
+});
+```
+
+Finalmente, cierras la definición del modelo `Viaje`.
+
+Este modelo ahora puede ser utilizado para realizar operaciones de base de datos relacionadas con la tabla `viajes`, como consultas, inserciones, actualizaciones, etc., utilizando métodos proporcionados por Sequelize.
+
+Espero que esto te ayude a entender qué está haciendo cada línea de tu archivo `Viajes.js`. ¿Tienes alguna otra pregunta al respecto?
+
+# Controller
+
+**sobre mi codigo colocado en paginasController.js de mi carpeta controllers**
+En el contexto de desarrollo web, especialmente en el patrón de diseño Modelo-Vista-Controlador (MVC), un "controlador" (Controller) actúa como un intermediario entre la "vista" (View) y el "modelo" (Model). En términos más sencillos, el controlador maneja la lógica de la aplicación: recibe las solicitudes HTTP del cliente, interactúa con el modelo para recuperar o modificar datos, y finalmente devuelve una respuesta, generalmente en forma de una vista renderizada.
+
+### En tu código
+
+Tu archivo `paginasController.js` es un ejemplo de un controlador. En este caso, tienes tres funciones (`paginaInicio`, `paginaNosotros`, `paginaTestimoniales`) que actúan como controladores para diferentes rutas de tu aplicación:
+
+-   `paginaInicio` controla lo que sucede cuando un usuario accede a la ruta raíz (`"/"`).
+-   `paginaNosotros` controla lo que sucede cuando un usuario accede a la ruta `"/nosotros"`.
+-   `paginaTestimoniales` controla lo que sucede cuando un usuario accede a la ruta `"/testimoniales"`.
+
+Cada una de estas funciones toma dos argumentos (`req` y `res`), que representan la "solicitud" y la "respuesta" en la comunicación HTTP, respectivamente. Utilizas el método `res.render` para enviar una respuesta al cliente, que en este caso es una vista HTML renderizada con información adicional (como el nombre de la página).
+
+### Resumen
+
+En resumen, en este contexto, un "controller" es simplemente un conjunto de funciones que manejan la lógica relacionada con el manejo de rutas y la interacción con las vistas y modelos. Ayudan a mantener tu código organizado y separan las preocupaciones de tu aplicación, haciendo que sea más fácil de mantener y escalar.

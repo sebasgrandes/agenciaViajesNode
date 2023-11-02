@@ -1,0 +1,25 @@
+# explicame que es esto: app.use(express.urlencoded({ extended: true }));
+
+La línea `app.use(express.urlencoded({ extended: true }));` es una forma de decirle a tu aplicación Express que utilice un middleware que analice el cuerpo de las solicitudes HTTP que se reciben con el tipo de contenido `application/x-www-form-urlencoded`. Este es el tipo de contenido que se utiliza normalmente para enviar datos de formularios HTML.
+
+Aquí hay un desglose detallado:
+
+-   `app.use()`: Esto registra un middleware que se ejecutará para todas las solicitudes entrantes.
+
+-   `express.urlencoded()`: Este es el middleware que analiza el cuerpo de la solicitud entrante. Lo convierte en un objeto JavaScript, que luego se puede acceder a través de `req.body`.
+
+-   `{ extended: true }`: La opción `extended` permite elegir entre analizar los datos con la biblioteca `querystring` (cuando `extended` es `false`) o con `qs` (cuando `extended` es `true`). La biblioteca `qs` permite anidar objetos y arreglos, ofreciendo una representación más rica de la cadena de consulta, mientras que `querystring` no lo permite.
+
+Al hacer esto, cualquier formulario que envíe datos al servidor usando el método POST con el encabezado `Content-Type` establecido como `application/x-www-form-urlencoded` tendrá su cuerpo analizado y agregado al objeto `req.body`.
+
+Por ejemplo, si tu HTML tiene un formulario como este:
+
+```html
+<form method="post" action="/submit">
+    <input type="text" name="username" />
+    <input type="password" name="password" />
+    <button type="submit">Submit</button>
+</form>
+```
+
+Y el usuario envía el formulario con "username" como "John" y "password" como "Doe", entonces en tu controlador Express podrás acceder a estos valores usando `req.body.username` y `req.body.password`, que serán "John" y "Doe" respectivamente.

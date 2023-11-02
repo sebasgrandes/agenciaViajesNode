@@ -1,0 +1,101 @@
+# que es get y post?
+
+Los métodos `GET` y `POST` son métodos de solicitud HTTP utilizados para interactuar con recursos en un servidor web. HTTP (Protocolo de transferencia de hipertexto) es el protocolo subyacente que se utiliza en la World Wide Web para la transferencia de datos. Estos métodos (a menudo llamados "verbos HTTP") definen qué acción se está intentando realizar con el recurso.
+
+### Método GET
+
+El método `GET` se utiliza para solicitar un recurso del servidor. No envía datos al servidor por sí mismo (más allá de los incluidos en la URL y encabezados), sino que solicita datos del servidor. Al usar `GET`, básicamente estás diciendo: "Dame este recurso".
+
+Por ejemplo, cuando visitas una página web, tu navegador realiza una solicitud `GET` al servidor para obtener el HTML, imágenes y otros recursos asociados con esa página. En el contexto de una API, podrías usar `GET` para obtener datos de un usuario, una lista de artículos, etc.
+
+### Método POST
+
+El método `POST` se utiliza para enviar datos al servidor para crear o modificar un recurso. A diferencia de `GET`, donde la mayoría de la información está en la URL, `POST` envía la información en el cuerpo de la solicitud HTTP. Al usar `POST`, básicamente estás diciendo: "Toma estos datos y crea/actualiza este recurso".
+
+Por ejemplo, cuando envías un formulario en una página web para registrarte en un nuevo servicio, tu navegador generalmente realiza una solicitud `POST` que envía tus datos al servidor. En el contexto de una API, podrías usar `POST` para crear un nuevo usuario, publicar un nuevo artículo, etc.
+
+Ambos métodos son fundamentales en la arquitectura de la web y permiten diferentes tipos de interacciones entre clientes y servidores.
+
+# explicame sobre el .get y .post que uso en mi **routes/index.js**
+
+En el código proporcionado, tienes dos rutas que manejan diferentes tipos de solicitudes HTTP para la URL "/testimoniales": una para `GET` y otra para `POST`. Ambas rutas usan diferentes controladores (`paginaTestimoniales` y `guardarTestimonial`), que definen lo que sucederá cuando se acceda a esa URL con el método HTTP correspondiente.
+
+### `router.get("/testimoniales", paginaTestimoniales);`
+
+Esta línea define lo que sucede cuando se realiza una solicitud GET a la URL "/testimoniales":
+
+-   El controlador `paginaTestimoniales` se encarga de manejar esta solicitud.
+-   En este controlador, se utiliza el método `res.render` para enviar una vista HTML llamada "testimoniales" al cliente. El objeto `{ pagina: "Testimoniales" }` se pasa como un valor que puede ser utilizado en la vista para mostrar información dinámica (en este caso, probablemente el título de la página).
+
+Esta ruta probablemente se activa cuando el usuario simplemente visita la página de testimoniales en el navegador.
+
+### `router.post("/testimoniales", guardarTestimonial);`
+
+Esta línea define lo que sucede cuando se realiza una solicitud POST a la URL "/testimoniales":
+
+-   El controlador `guardarTestimonial` se encarga de manejar esta solicitud.
+-   En este controlador, `req.body` contiene el cuerpo de la solicitud POST, que es donde generalmente se almacenan los datos enviados desde un formulario en el cliente.
+-   El código `console.log(testimonial);` simplemente imprime estos datos en la consola del servidor.
+
+Esta ruta probablemente se activa cuando un usuario envía un formulario desde la página de testimoniales, con el objetivo de guardar un nuevo testimonial en la base de datos o realizar alguna otra acción.
+
+En resumen, en el contexto de tu código:
+
+-   `GET` se utiliza para cargar la página y mostrar la información al usuario.
+-   `POST` se utiliza para recibir datos del usuario, como un nuevo testimonial, que probablemente se almacenará en una base de datos.
+
+# el navegador es aquel que realiza las solicitudes get y post al servidor?
+
+Sí, en el contexto de la navegación web, es el navegador el que generalmente realiza las solicitudes `GET` y `POST` al servidor. Cuando visitas una página web al introducir una URL en la barra de direcciones o hacer clic en un enlace, el navegador envía una solicitud `GET` al servidor para obtener los recursos asociados con esa URL. Cuando envías un formulario en una página web, el navegador usualmente realiza una solicitud `POST` para enviar los datos del formulario al servidor.
+
+Sin embargo, no es solo el navegador el que puede hacer estas solicitudes. Las aplicaciones cliente, como las aplicaciones móviles o de escritorio, también pueden realizar solicitudes `GET` y `POST`. Además, puedes hacer solicitudes HTTP programáticamente utilizando diversas bibliotecas y lenguajes de programación como Python, JavaScript (Node.js), etc.
+
+En resumen, aunque en el contexto de la web es común que el navegador realice estas solicitudes, cualquier cliente que hable el protocolo HTTP puede hacerlo.
+
+# el hecho de "enviar una vista HTML llamada "testimoniales" al cliente" seria un post?
+
+No, enviar una vista HTML al cliente usando `res.render("testimoniales", { pagina: "Testimoniales" });` en el controlador `paginaTestimoniales` es parte de manejar una solicitud `GET`. En este caso, el cliente (generalmente un navegador web) hace una solicitud `GET` para recuperar una página web, y el servidor responde enviando de vuelta la vista HTML llamada "testimoniales".
+
+Cuando usas `res.render()`, estás diciendo "cuando reciba una solicitud `GET` para esta URL, quiero que generes y envíes esta vista HTML como respuesta". No estás creando ni modificando recursos en el servidor; simplemente estás respondiendo a una solicitud con información, lo cual es el uso típico de una solicitud `GET`.
+
+`POST`, por otro lado, generalmente se utiliza cuando el cliente envía datos al servidor para crear o modificar un recurso. En tu ejemplo, la función `guardarTestimonial` maneja las solicitudes `POST` y captura los datos enviados en `req.body`.
+
+# un poco mas de explicacion sobre los metodos get y post
+
+Claro, los métodos `GET` y `POST` son dos de los métodos de solicitud HTTP más comúnmente utilizados para interactuar con recursos en un servidor web. Ambos métodos tienen diferentes usos, características y restricciones:
+
+### Método GET
+
+-   **Uso**: Generalmente se utiliza para solicitar datos desde un recurso específico.
+-   **Parámetros**: Se envían como parte de la URL, generalmente después de un símbolo `?`.
+-   **Seguridad**: No es seguro para enviar datos sensibles, ya que los parámetros están expuestos en la URL y se almacenan en el historial del navegador.
+-   **Limitaciones**: La longitud de la URL está limitada, lo que restringe la cantidad de datos que puedes enviar.
+-   **Caché**: Las respuestas a las solicitudes GET a menudo se almacenan en caché.
+-   **Idempotente**: Hacer múltiples solicitudes GET idénticas debería tener el mismo efecto que hacer una única solicitud.
+
+### Método POST
+
+-   **Uso**: Generalmente se utiliza para enviar datos para crear o actualizar un recurso.
+-   **Parámetros**: Se envían en el cuerpo de la solicitud, lo que permite enviar datos más grandes.
+-   **Seguridad**: Más seguro que GET para enviar datos sensibles. Los datos no están expuestos en la URL y no se almacenan en el historial del navegador.
+-   **Limitaciones**: No hay una limitación estricta sobre la cantidad de datos que se pueden enviar.
+-   **Caché**: Las respuestas a las solicitudes POST generalmente no se almacenan en caché.
+-   **No idempotente**: Enviar múltiples solicitudes POST idénticas podría tener efectos secundarios, como crear el mismo recurso varias veces.
+
+#### Ejemplos:
+
+-   **GET**: Cuando haces clic en un enlace para visitar una página web, generalmente se utiliza una solicitud GET.
+
+    ```
+    http://example.com/articles?category=sports
+    ```
+
+-   **POST**: Cuando llenas un formulario en línea para registrarte en una página web, generalmente se utiliza una solicitud POST.
+
+    ```html
+    <form action="/register" method="post">
+        <!-- campos del formulario -->
+    </form>
+    ```
+
+Ambos métodos son fundamentales en el desarrollo web y se utilizan dependiendo de lo que se quiera lograr.

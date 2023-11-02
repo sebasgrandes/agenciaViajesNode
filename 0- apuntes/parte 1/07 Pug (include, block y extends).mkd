@@ -1,0 +1,29 @@
+# sobre include y block
+El código que has proporcionado es un ejemplo de una plantilla en Pug, un motor de plantillas para Node.js. Vamos a descomponer las dos partes que has mencionado: `include` y `block`.
+
+### `include`
+La palabra clave `include` se utiliza para incluir el contenido de un archivo Pug en otro. Esto es útil para reutilizar código y mantener las plantillas DRY (Don't Repeat Yourself, o "No te repitas"). Por ejemplo, si tienes un archivo `header.pug` que contiene el encabezado del sitio web, puedes incluirlo en varias plantillas usando `include header`.
+
+### `block`
+`block` se utiliza para definir un "bloque" que puede ser reemplazado en plantillas que extienden la plantilla actual. En otras palabras, puedes tener una plantilla base que define la estructura general del sitio web y usar `block` para especificar áreas que serán diferentes en cada página.
+
+Por ejemplo, si tienes una plantilla base que incluye el encabezado, el pie de página, y un `block` para el contenido, podrías extender esa plantilla en una página específica y reemplazar solo el `block` del contenido. Esto te permite mantener un diseño coherente en todo el sitio web sin tener que duplicar código.
+
+En tu código, `block contenidoLayout` es un bloque que puedes reemplazar con contenido específico en plantillas que extienden esta plantilla base.
+
+En resumen, `include` y `block` son dos características poderosas de Pug que te ayudan a reutilizar y organizar tu código de manera eficiente.
+
+# sobre extends
+
+El `extends` en Pug se utiliza para indicar que una plantilla se basa en otra plantilla. En tu caso, `extends ./layout/index` significa que `testimoniales.pug` está extendiendo la plantilla `index.pug` que se encuentra en la carpeta `layout`.
+
+Cuando usas `extends`, heredas todo el contenido de la plantilla base (`index.pug` en este caso). Sin embargo, puedes reemplazar o añadir contenido en bloques específicos definidos en la plantilla base.
+
+### `block contenidoLayout`
+Este es el bloque que se reemplazará en `testimoniales.pug`. Observa que `block contenidoLayout` también está definido en tu `index.pug`. Lo que pones dentro de este bloque en `testimoniales.pug` reemplazará el contenido del mismo bloque en `index.pug`.
+
+### En resumen:
+- `extends ./layout/index`: Indica que esta plantilla se basa en `index.pug` dentro de la carpeta `layout`.
+- `block contenidoLayout`: Este es el bloque que se reemplazará en la plantilla extendida (`index.pug`). Todo el contenido dentro de este bloque en `testimoniales.pug` será el contenido que se muestre en el lugar de `block contenidoLayout` en `index.pug`.
+
+Es una forma muy eficiente de mantener un diseño constante en todo el sitio web, permitiéndote cambiar solo las partes que necesitas para cada página específica.
