@@ -4,7 +4,8 @@
     "description": "agencia de viajes creada por sebastian",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon index.js"
+        "dev": "nodemon index.js",
+        "start": "node index.js"
     },
     "author": "Sebastian Grandes",
     "type": "module",

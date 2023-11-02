@@ -139,15 +139,15 @@ para hacer mi deploy usare alwaysdata para mi base de datos y render como servid
 
 -   aporte de estudiante del curso: https://www.udemy.com/course/javascript-moderno-guia-definitiva-construye-10-proyectos/learn/lecture/32652834#questions/19244478
 -   parte de always data: https://youtu.be/B5sa_tCCou4
+-   parte de render: en el comentario del estudiante (no es necesario añadir en scripts tu "start": y colocar en render npm run start... porque en render en el campo de start command esta: node index.js... y este efectivamente se usa para poner en marcha tu aplicacion. solo pruebalo en la terminal y veras). (en el caso de trabajar en local tu haces npm run dev el cual invoca a nodemon que hace el trabajo automatico de iniciar tu app y recargarla en cada cambio)
+    en render la opcion de hacer el deploy automatico cada que tu archivo de github se cambie (push) está activado por defecto. asi que cualquier cambio que subas en github se actualizará automaticamente en render. (lo mismo con la db de always data pero esta es más obvia porque es consultada en cada pagina en la que se necesita la db)
 
 **al hacer un cambio cualquiera debes actualizar el git**
 
 -   terminal > git add.
--   git commit -m "fix package.json" // le das un nombre significativo si quieres
-    // ya esta definido el repositorio al cual subirlo por lo que solo haremos push
--   git push -u origin-main
-    // ahora le decimos a heroku que actualice porque hicimos un cambio
--   git push heroku main
+-   git commit -m "nombre significativo" <!-- le das un nombre significativo si quieres -->
+    <!-- ya esta definido el repositorio al cual subirlo por lo que solo haremos push -->
+-   git push -u origin main
 
 ## deprecated
 
@@ -172,7 +172,7 @@ para proyectos pequeños o personales heroku es gratis. para grandes que te pued
 -   terminal > git add.
 -   git commit -m "fix package.json" //  le das un nombre significativo si quieres
 //  ya esta definido el repositorio al cual subirlo por lo que solo haremos push
--   git push -u origin-main
+-   git push -u origin main
 //  ahora le decimos a heroku que actualice porque hicimos un cambio
 -   git push heroku main
 
