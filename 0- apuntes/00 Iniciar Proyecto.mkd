@@ -105,7 +105,7 @@ en db.js...
 
 -   de esta, cuando subamos el proyecto a github, alguien que se meta al archivo db.js solo verá los nombres de las variables... más no sus valores (las credenciales en .env)
 
-## instalando git y conectandolo a github
+## instalando git, conectandolo a github y creando el .gitignore
 
 esto te lo enseñan el el curso de Crea un ambiente de desarrollo web del profe. seccion 3 clase 7
 
@@ -115,7 +115,7 @@ esto te lo enseñan el el curso de Crea un ambiente de desarrollo web del profe.
 
 -   git init
 <!-- ! antes de agregar los archivos creas tu archivo .gitignore y añades: .env y node_modules -->
--   en tu worksapce creas .gitignore
+-   en tu worksapce **creas .gitignore**
 -   git add . <!-- esto añade todos los archivos de tu workspace -->
 -   git commit -m "first commit"
     <!-- por si te sale que el autor no se puede identificar... te dará 2 codigos para que los configures:
@@ -129,8 +129,61 @@ esto te lo enseñan el el curso de Crea un ambiente de desarrollo web del profe.
 <!-- si te sale un error de failed to push some refs to... es porque las credenciales no las colocaste pero despues, entonces, repite de nuevo la liunea 2 (add), 3 (commit) y 4 (push) -->
 
 4. aparecera una ventana para que inicies sesion, dale acceso.
-5. recarga la pagina de github que te mostraba los comandos del navegador... ahora te mostrara tu repositorio
+5. recarga la pagina de github que te mostraba los comandos del navegador... ahora te mostrara tu repositorio con el proyecto subido
 
-## creando el gitignore
+en db.js solo se mostraran lso nombres de las variables de entorno, mas no sus valores. **cuando los subamos a un hosting existirá un panel en el que podemos colocar nuestras variables de entorno**
 
-1. ve a guthub.com > +' > nuevo repositorio
+## mas
+
+para hacer mi deploy usare alwaysdata para mi base de datos y render como servidor. me guiaré del aporte de un estudiante y de youtube:
+
+-   aporte de estudiante del curso: https://www.udemy.com/course/javascript-moderno-guia-definitiva-construye-10-proyectos/learn/lecture/32652834#questions/19244478
+-   parte de always data: https://youtu.be/B5sa_tCCou4
+
+**al hacer un cambio cualquiera debes actualizar el git**
+
+-   terminal > git add.
+-   git commit -m "fix package.json" // le das un nombre significativo si quieres
+    // ya esta definido el repositorio al cual subirlo por lo que solo haremos push
+-   git push -u origin-main
+    // ahora le decimos a heroku que actualice porque hicimos un cambio
+-   git push heroku main
+
+## deprecated
+
+<!-- ! HEROKU ya no es gratuito
+
+## subiendo el codigo a heroku
+para proyectos pequeños o personales heroku es gratis. para grandes que te pueden gnerar dinero te tocará pagar.
+1. instala heroku cli mediante el instalador de windows // https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up
+2. inicia sesion a heroku desde tu terminal
+
+-   terminal > heroku login
+-   presiona cualquier tecla e inicia sesion desde el navegador
+
+3. sube el repositorio de github a heroku
+
+-   terminal > git push heroku main
+    hace falta un script que arranque el servicio de nodemon... porque este es de desarrollo, no de produccion.
+    añadimos a package.json en "scripts" -> "start": "node index.js"
+
+4. como hicimos un cambio debemos actualizar el git
+
+-   terminal > git add.
+-   git commit -m "fix package.json" //  le das un nombre significativo si quieres
+//  ya esta definido el repositorio al cual subirlo por lo que solo haremos push
+-   git push -u origin-main
+//  ahora le decimos a heroku que actualice porque hicimos un cambio
+-   git push heroku main
+
+5. te saldran errores (por sequelize) porque requieres llevar tu base de datos a produccion... tus variables de entorno
+
+## subiendo tu db
+
+1. añades el addon cleandb a tu aplicacion
+2. añades tus variables de entorno en heroku
+   en table plus
+3. exportas las tablas de tu db
+4. creas una nueva coneccion mysql... que sera la de produccion (colocas las credenciales de produccion).. e importas tu db que exportaste
+
+-->
